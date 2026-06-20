@@ -1,65 +1,158 @@
-import Image from "next/image";
+import { Nav } from "@/components/Nav";
+import { Section } from "@/components/Section";
+import { ProjectCard } from "@/components/ProjectCard";
+import { site } from "@/lib/site";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <>
+      <Nav />
+
+      <main id="top" className="flex-1">
+        {/* Hero */}
+        <section className="relative flex min-h-screen items-center overflow-hidden px-6">
+          {/* Animated color blobs */}
+          <div className="pointer-events-none absolute inset-0 -z-10">
+            <div className="animate-float-slow absolute left-[10%] top-[15%] h-72 w-72 rounded-full bg-fuchsia-600/30 blur-3xl" />
+            <div className="animate-float-slower absolute right-[8%] top-[30%] h-80 w-80 rounded-full bg-indigo-600/30 blur-3xl" />
+            <div className="animate-float-slow absolute bottom-[8%] left-[35%] h-72 w-72 rounded-full bg-cyan-500/20 blur-3xl" />
+          </div>
+
+          <div className="mx-auto w-full max-w-5xl">
+            <p className="animate-fade-up mb-5 inline-block rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm font-medium text-white/70">
+              👋 Hi, I&apos;m {site.name} — based in {site.location}
+            </p>
+            <h1 className="animate-fade-up text-5xl font-black leading-[1.05] tracking-tight sm:text-7xl">
+              I&apos;m a <span className="text-gradient">{site.role}</span>
+              <br />
+              who loves to build.
+            </h1>
+            <p className="animate-fade-up mt-6 max-w-xl text-lg text-white/60">
+              {site.tagline}
+            </p>
+            <div className="animate-fade-up mt-10 flex flex-wrap gap-4">
+              <a
+                href="#projects"
+                className="rounded-full bg-gradient-to-r from-fuchsia-500 to-indigo-500 px-7 py-3 font-semibold text-white shadow-lg shadow-fuchsia-500/25 transition hover:opacity-90"
+              >
+                See my work
+              </a>
+              <a
+                href="#contact"
+                className="rounded-full border border-white/15 px-7 py-3 font-semibold text-white transition hover:bg-white/5"
+              >
+                Get in touch
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* About */}
+        <Section id="about" eyebrow="About" title="A little about me">
+          <div className="grid gap-6 text-lg leading-relaxed text-white/70 md:grid-cols-2">
+            {site.about.map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
+          </div>
+        </Section>
+
+        {/* Experience */}
+        <Section id="experience" eyebrow="Experience" title="Where I've worked">
+          <div className="relative space-y-10 border-l border-white/10 pl-8">
+            {site.experience.map((job) => (
+              <div key={job.company} className="relative">
+                <span className="absolute -left-[37px] top-1.5 h-3.5 w-3.5 rounded-full bg-gradient-to-br from-fuchsia-500 to-indigo-500 ring-4 ring-background" />
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4">
+                  <h3 className="text-xl font-bold">{job.company}</h3>
+                  <span className="text-sm font-medium text-white/40">
+                    {job.period}
+                  </span>
+                </div>
+                <p className="mt-0.5 text-sm font-semibold text-fuchsia-400">
+                  {job.role}
+                </p>
+                <ul className="mt-4 space-y-2 text-white/65">
+                  {job.points.map((point, i) => (
+                    <li key={i} className="flex gap-3 leading-relaxed">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white/30" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* Skills */}
+        <Section id="skills" eyebrow="Toolkit" title="Things I work with">
+          <ul className="flex flex-wrap gap-3">
+            {site.skills.map((skill) => (
+              <li
+                key={skill}
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-medium text-white/80 transition hover:border-fuchsia-400/40 hover:text-white"
+              >
+                {skill}
+              </li>
+            ))}
+          </ul>
+        </Section>
+
+        {/* Projects */}
+        <Section id="projects" eyebrow="Work" title={<>Selected projects</>}>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {site.projects.map((project) => (
+              <ProjectCard key={project.title} project={project} />
+            ))}
+          </div>
+        </Section>
+
+        {/* Contact */}
+        <Section id="contact" eyebrow="Contact" title="Let's build something">
+          <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-fuchsia-500/10 via-purple-500/5 to-indigo-500/10 p-10 sm:p-14">
+            <p className="max-w-lg text-lg text-white/70">
+              Have a project in mind, a question, or just want to say hi? My
+              inbox is always open.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <a
+                href={`mailto:${site.email}`}
+                className="inline-block rounded-full bg-white px-8 py-3.5 font-semibold text-background transition hover:bg-white/90"
+              >
+                {site.email}
+              </a>
+              <a
+                href={`tel:${site.phone.replace(/\s/g, "")}`}
+                className="inline-block rounded-full border border-white/15 px-8 py-3.5 font-semibold text-white transition hover:bg-white/5"
+              >
+                {site.phone}
+              </a>
+            </div>
+            <div className="mt-10 flex flex-wrap gap-6 text-sm font-medium text-white/60">
+              {site.socials.map((s) => (
+                <a
+                  key={s.href}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition hover:text-white"
+                >
+                  {s.label} ↗
+                </a>
+              ))}
+            </div>
+          </div>
+        </Section>
       </main>
-    </div>
+
+      <footer className="border-t border-white/10 px-6 py-8">
+        <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 text-sm text-white/40 sm:flex-row">
+          <p>
+            © {new Date().getFullYear()} {site.name}. All rights reserved.
+          </p>
+          <p>Built with Next.js & Tailwind CSS.</p>
+        </div>
+      </footer>
+    </>
   );
 }
