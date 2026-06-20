@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simoun Ezequiel Tusi — Résumé</title>
+    <style>
+      :root {
+        --ink: #1a1a1f;
+        --muted: #55555f;
+        --faint: #76767f;
+        --accent: #6d28d9;
+        --line: #e4e4ea;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        color: var(--ink);
+        line-height: 1.4;
+        font-size: 10.5px;
+        background: #f3f3f6;
+      }
+      .page {
+        max-width: 8.27in; /* A4 width */
+        margin: 0 auto;
+        background: #fff;
+        padding: 0.55in 0.6in;
+      }
+
+      /* Header */
+      header { border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-bottom: 14px; }
+      h1 {
+        margin: 0;
+        font-size: 23px;
+        letter-spacing: 0.2px;
+        font-weight: 800;
+      }
+      .title { margin: 3px 0 6px; font-size: 11.5px; font-weight: 600; color: var(--accent); }
+      .contact { font-size: 10px; color: var(--muted); }
+      .contact span { white-space: nowrap; }
+      .contact .sep { color: var(--line); margin: 0 7px; }
+
+      /* Sections */
+      section { margin-top: 13px; }
+      h2 {
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 1.4px;
+        color: var(--accent);
+        margin: 0 0 7px;
+        padding-bottom: 3px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      /* Skills */
+      .skill-row { display: flex; gap: 8px; margin-bottom: 3px; }
+      .skill-row .k { flex: 0 0 108px; font-weight: 700; color: var(--ink); }
+      .skill-row .v { color: var(--muted); }
+
+      /* Entries */
+      .entry { margin-bottom: 10px; break-inside: avoid; }
+      .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+      .entry-head .role { font-weight: 700; font-size: 11.5px; }
+      .entry-head .when { font-size: 9.5px; color: var(--faint); white-space: nowrap; }
+      .entry .org { font-size: 10px; color: var(--accent); font-weight: 600; margin: 1px 0 2px; }
+      .entry .lead { color: var(--muted); margin: 2px 0 4px; }
+      ul { margin: 3px 0 0; padding-left: 15px; }
+      li { margin: 2px 0; color: var(--muted); }
+      li b, .entry .lead b { color: var(--ink); }
+      .stack { color: var(--faint); font-weight: 600; }
+      .badge {
+        display: inline-block; font-size: 8.5px; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.5px;
+        color: var(--accent); border: 1px solid var(--accent);
+        border-radius: 999px; padding: 0 6px; margin-left: 6px; vertical-align: 1px;
+      }
+      .live { color: #047857; border-color: #047857; }
+
+      .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 22px; }
+      .strength b { color: var(--ink); }
+
+      @media print {
+        body { background: #fff; font-size: 10px; }
+        .page { max-width: none; margin: 0; padding: 0.45in 0.5in; }
+        a { color: inherit; text-decoration: none; }
+        @page { size: A4; margin: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>Simoun Ezequiel Tusi</h1>
+        <div class="title">Full-Stack Developer · BS Computer Science, UPLB</div>
+        <div class="contact">
+          <span>📍 Calamba City, Laguna</span><span class="sep">|</span>
+          <span>📞 0935 733 0435</span><span class="sep">|</span>
+          <span>✉️ tusi.ekel@gmail.com</span><span class="sep">|</span>
+          <span>github.com/234ekel234</span><span class="sep">|</span>
+          <span>linkedin.com/in/simoun-ezequiel-tusi</span>
+        </div>
+      </header>
+
+      <p style="margin: 0 0 4px; color: var(--muted)">
+        Full-stack developer who builds and runs <b>business-critical systems
+        solo</b> — from data model to deployment and maintenance. Shipped
+        enterprise maintenance, warehouse, and payroll systems now in active use.
+      </p>
+
+      <section>
+        <h2>Technical Skills</h2>
+        <div class="skill-row"><div class="k">Languages</div><div class="v">Ruby (Rails), JavaScript (Node.js / React), Python, Go, SQL, R</div></div>
+        <div class="skill-row"><div class="k">Frameworks</div><div class="v">Ruby on Rails, Express.js, Flask, React, React Native (Expo), Next.js</div></div>
+        <div class="skill-row"><div class="k">Databases</div><div class="v">PostgreSQL, MySQL, Prisma ORM</div></div>
+        <div class="skill-row"><div class="k">Tools &amp; Infra</div><div class="v">Docker, Git, Linux/Bash, Microsoft 365 Administration, Vercel, DigitalOcean</div></div>
+        <div class="skill-row"><div class="k">Core</div><div class="v">REST API design, ETL / data pipelines, server-enforced access control, payroll-engine development, data modeling, business process analysis</div></div>
+        <div class="skill-row"><div class="k">Exposure</div><div class="v">Java, C, Assembly, Dart (Flutter), LLMs, MongoDB, Firestore, Firebase</div></div>
+      </section>
+
+      <section>
+        <h2>Professional &amp; Client Projects</h2>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="role">Programmer — FMI (Facility Management &amp; Integration)</span>
+            <span class="when">Apr 2026 – Present</span>
+          </div>
+          <div class="lead">Sole developer building enterprise systems end to end with no senior oversight — all now in active use across the company.</div>
+          <ul>
+            <li><b>CMMS</b> <span class="stack">(React Native/Expo · Express.js · PostgreSQL · Prisma · DigitalOcean)</span> — Maintenance &amp; workforce platform that replaced a ~$2,400/yr off-the-shelf SaaS. Role- and site-scoped access for 4 roles <b>enforced server-side</b> (unassigned sites return 403), a multi-tenant client portal, work orders, PM checklists, attendance, and audit trail. Delivered the MVP ~26 days early, 13 core features.</li>
+            <li><b>WMS</b> <span class="stack">(Ruby on Rails · PostgreSQL · Docker)</span> — Real-time inventory with a <b>supervisor approval gate</b> and <b>automated replenishment</b> computed from 12 months of usage history (safety stock, reorder points, order quantities). Per-batch expiry alerts, PO/SO-linked transactions, QR scanning, audit trail, dashboard, Excel import/export, in-browser DB backup.</li>
+            <li><b>DTR / Biometric Consolidator</b> <span class="stack">(Python · Flask · ETL)</span> <span class="badge">In progress</span> — ETL pipeline ingesting attendance from multiple biometric devices, each in a different format, via per-device adapters; reconciles and deduplicates into clean daily time records; REST API planned for payroll/HR.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="role">SMT Payroll System <span class="stack">· Ruby on Rails · PostgreSQL</span></span>
+            <span class="when">Dec 2025 – Mar 2026</span>
+          </div>
+          <div class="org">Independent Developer — Paid Client Project</div>
+          <ul>
+            <li>Full payroll engine for ~100 employees: automatic time-slicing, overtime, night differential, and legal/special holiday calculations.</li>
+            <li>Alias-mapping layer reconciling biometric display names against an employee masterlist, eliminating manual ID lookups.</li>
+            <li>Excel payroll-slip generation (RubyXL) with per-company logo injection; print-ready output for HR. Delivered end to end through client handover.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="role">Sanro Inventory — Legacy System Migration <span class="stack">· Ruby on Rails · Docker · Ubuntu</span></span>
+            <span class="when">Oct 2025 – Nov 2025</span>
+          </div>
+          <div class="org">Independent Developer — Paid Client Project</div>
+          <ul>
+            <li>Revived a 2015 inventory &amp; invoicing system that no longer ran on modern Linux by containerizing the unsupported stack in an older Ubuntu Docker image.</li>
+            <li>Performed a full data migration to a new on-premise server with minimal downtime — keeping the shop operational with zero rewrite.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="role">PMAFI Foundation Website <span class="stack">· Next.js · Tailwind CSS · Google Sheets · Vercel</span><span class="badge live">Live</span></span>
+            <span class="when">2026</span>
+          </div>
+          <ul>
+            <li>Designed and built the official 8-page website for the Philippine Military Academy Foundation, Inc.</li>
+            <li>Server-side member status check reading a private Google Sheet (roster never reaches the browser); client-side Digital Member ID generator with QR; full SEO/structured data, 100/100 Lighthouse accessibility, ~₱0/mo operating cost.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-head">
+            <span class="role">Full-Stack Developer Intern <span class="stack">· Sails.js · GitHub</span></span>
+            <span class="when">Jun 2024 – Aug 2024</span>
+          </div>
+          <div class="org">City Human Resource Management Office</div>
+          <ul>
+            <li>Built a full Learning &amp; Development module managing training programs, materials, and employee training records.</li>
+            <li>Collaborated with a team using Git/GitHub for version control and iterative delivery.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Academic &amp; Technical Projects</h2>
+        <div class="entry">
+          <div class="entry-head">
+            <span class="role">Thesis — LLM-Driven Analysis &amp; Detection of Vulnerabilities in Filipino Credentials</span>
+          </div>
+          <ul>
+            <li>Built an LLM-based framework to detect credential-tweaking vulnerabilities using synthetic identity generation (DeepSeek-R1) and a Hybrid Similarity Score (Cosine + Damerau–Levenshtein).</li>
+            <li>Filtered 884.5M breach entries to ~21.2k Filipino passwords, evaluated 5 LLMs, and shipped a React/Vue evaluation tool (4.5/5 usability).</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Education</h2>
+        <div class="entry-head">
+          <span class="role">B.S. Computer Science — University of the Philippines Los Baños (UPLB)</span>
+        </div>
+        <div class="lead">Relevant Coursework: Database Systems · Data Structures &amp; Algorithms · Software Engineering · Artificial Intelligence · Machine Learning · Compiler Design</div>
+      </section>
+    </div>
+  </body>
+</html>

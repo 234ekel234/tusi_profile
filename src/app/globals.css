@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
+/* Dark is the default theme. The `.light` class on <html> flips the tokens. */
 :root {
   --background: #0a0613;
   --foreground: #f5f3ff;
+  color-scheme: dark;
+}
+
+:root.light {
+  --background: #f7f6fb;
+  --foreground: #181225;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -44,6 +52,14 @@ body {
 
 .text-gradient {
   background: linear-gradient(90deg, #f0abfc, #c084fc, #818cf8, #38bdf8);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Deeper gradient stops keep the text readable on a light background. */
+:root.light .text-gradient {
+  background: linear-gradient(90deg, #c026d3, #9333ea, #4f46e5, #0284c7);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;

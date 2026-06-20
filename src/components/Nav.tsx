@@ -1,14 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const links = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "/#about" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Skills", href: "/#skills" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export function Nav() {
@@ -25,33 +27,36 @@ export function Nav() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "border-b border-white/10 bg-background/70 backdrop-blur-xl"
+          ? "border-b border-foreground/10 bg-background/70 backdrop-blur-xl"
           : "border-b border-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <a href="#top" className="text-lg font-bold tracking-tight">
+        <Link href="/#top" className="text-lg font-bold tracking-tight">
           {site.name.split(" ")[0]}
           <span className="text-gradient">.</span>
-        </a>
-        <ul className="hidden gap-8 text-sm font-medium text-white/70 sm:flex">
+        </Link>
+        <ul className="hidden gap-8 text-sm font-medium text-foreground/70 sm:flex">
           {links.map((l) => (
             <li key={l.href}>
-              <a
+              <Link
                 href={l.href}
-                className="transition-colors hover:text-white"
+                className="transition-colors hover:text-foreground"
               >
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
-        <a
-          href="#contact"
-          className="rounded-full bg-white/10 px-4 py-2 text-sm font-semibold ring-1 ring-white/15 transition hover:bg-white/20"
-        >
-          Let&apos;s talk
-        </a>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <Link
+            href="/#contact"
+            className="rounded-full bg-foreground/10 px-4 py-2 text-sm font-semibold ring-1 ring-foreground/15 transition hover:bg-foreground/20"
+          >
+            Let&apos;s talk
+          </Link>
+        </div>
       </nav>
     </header>
   );
