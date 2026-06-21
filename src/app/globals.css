@@ -51,6 +51,8 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  /* Safety net: never allow horizontal scrolling on any screen size. */
+  overflow-x: hidden;
 }
 
 a {

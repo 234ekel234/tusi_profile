@@ -13,19 +13,19 @@ export default function Home() {
         {/* Hero */}
         <section className="relative flex min-h-screen items-center overflow-hidden px-6">
           <div className="pointer-events-none absolute inset-0 -z-10">
-            <div className="animate-float-slow absolute left-[10%] top-[15%] h-72 w-72 rounded-full bg-fuchsia-600/30 blur-3xl" />
-            <div className="animate-float-slower absolute right-[8%] top-[30%] h-80 w-80 rounded-full bg-indigo-600/30 blur-3xl" />
-            <div className="animate-float-slow absolute bottom-[8%] left-[35%] h-72 w-72 rounded-full bg-cyan-500/20 blur-3xl" />
+            <div className="animate-float-slow absolute left-[10%] top-[15%] h-48 w-48 rounded-full bg-fuchsia-600/30 blur-3xl sm:h-72 sm:w-72" />
+            <div className="animate-float-slower absolute right-[8%] top-[30%] h-56 w-56 rounded-full bg-indigo-600/30 blur-3xl sm:h-80 sm:w-80" />
+            <div className="animate-float-slow absolute bottom-[8%] left-[35%] h-48 w-48 rounded-full bg-cyan-500/20 blur-3xl sm:h-72 sm:w-72" />
           </div>
 
           <div className="mx-auto w-full max-w-5xl">
             <p className="animate-fade-up mb-5 inline-block rounded-full border border-foreground/10 bg-foreground/5 px-4 py-1.5 text-sm font-medium text-foreground/70">
               👋 Hi, I&apos;m {site.name} — based in {site.location}
             </p>
-            <h1 className="animate-fade-up text-5xl font-black leading-[1.05] tracking-tight sm:text-7xl">
-              I&apos;m a <span className="text-gradient">{site.role}</span>
-              <br />
-              who ships production systems.
+            <h1 className="animate-fade-up text-4xl font-black leading-[1.1] tracking-tight sm:text-7xl sm:leading-[1.05]">
+              I&apos;m a{" "}
+              <span className="text-gradient break-words">{site.role}</span>
+              <br className="hidden sm:block" /> who ships production systems.
             </h1>
             <p className="animate-fade-up mt-6 max-w-xl text-lg text-foreground/60">
               {site.tagline}
@@ -34,16 +34,16 @@ export default function Home() {
               <span className="h-2 w-2 rounded-full bg-emerald-400" />
               {site.lookingFor}
             </p>
-            <div className="animate-fade-up mt-10 flex flex-wrap gap-4">
+            <div className="animate-fade-up mt-10 flex flex-wrap gap-3 sm:gap-4">
               <a
                 href="#ask"
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-fuchsia-500 to-indigo-500 px-7 py-3 font-semibold text-white shadow-lg shadow-fuchsia-500/25 transition hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-fuchsia-500 to-indigo-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-fuchsia-500/25 transition hover:opacity-90 sm:px-7 sm:py-3 sm:text-base"
               >
                 <span aria-hidden>✨</span> Chat with my AI
               </a>
               <a
                 href="#projects"
-                className="rounded-full border border-foreground/15 px-7 py-3 font-semibold text-foreground transition hover:bg-foreground/5"
+                className="rounded-full border border-foreground/15 px-6 py-2.5 text-sm font-semibold text-foreground transition hover:bg-foreground/5 sm:px-7 sm:py-3 sm:text-base"
               >
                 See my work
               </a>
@@ -51,13 +51,13 @@ export default function Home() {
                 href={site.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full border border-foreground/15 px-7 py-3 font-semibold text-foreground transition hover:bg-foreground/5"
+                className="rounded-full border border-foreground/15 px-6 py-2.5 text-sm font-semibold text-foreground transition hover:bg-foreground/5 sm:px-7 sm:py-3 sm:text-base"
               >
                 Download CV
               </a>
               <a
                 href="#contact"
-                className="rounded-full border border-foreground/15 px-7 py-3 font-semibold text-foreground transition hover:bg-foreground/5"
+                className="rounded-full border border-foreground/15 px-6 py-2.5 text-sm font-semibold text-foreground transition hover:bg-foreground/5 sm:px-7 sm:py-3 sm:text-base"
               >
                 Get in touch
               </a>
