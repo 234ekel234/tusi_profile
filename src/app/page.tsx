@@ -1,6 +1,7 @@
 import { Nav } from "@/components/Nav";
 import { Section } from "@/components/Section";
 import { ProjectCard } from "@/components/ProjectCard";
+import { Chat } from "@/components/Chat";
 import { site } from "@/lib/site";
 
 export default function Home() {
@@ -11,7 +12,6 @@ export default function Home() {
       <main id="top" className="flex-1">
         {/* Hero */}
         <section className="relative flex min-h-screen items-center overflow-hidden px-6">
-          {/* Animated color blobs */}
           <div className="pointer-events-none absolute inset-0 -z-10">
             <div className="animate-float-slow absolute left-[10%] top-[15%] h-72 w-72 rounded-full bg-fuchsia-600/30 blur-3xl" />
             <div className="animate-float-slower absolute right-[8%] top-[30%] h-80 w-80 rounded-full bg-indigo-600/30 blur-3xl" />
@@ -36,8 +36,14 @@ export default function Home() {
             </p>
             <div className="animate-fade-up mt-10 flex flex-wrap gap-4">
               <a
+                href="#ask"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-fuchsia-500 to-indigo-500 px-7 py-3 font-semibold text-white shadow-lg shadow-fuchsia-500/25 transition hover:opacity-90"
+              >
+                <span aria-hidden>✨</span> Chat with my AI
+              </a>
+              <a
                 href="#projects"
-                className="rounded-full bg-gradient-to-r from-fuchsia-500 to-indigo-500 px-7 py-3 font-semibold text-white shadow-lg shadow-fuchsia-500/25 transition hover:opacity-90"
+                className="rounded-full border border-foreground/15 px-7 py-3 font-semibold text-foreground transition hover:bg-foreground/5"
               >
                 See my work
               </a>
@@ -117,6 +123,19 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </Section>
+
+        {/* Ask AI */}
+        <Section
+          id="ask"
+          eyebrow="Ask AI"
+          title="Chat with my AI assistant"
+        >
+          <p className="mb-8 max-w-xl text-lg text-foreground/60">
+            Powered by Azure AI Foundry — ask anything about my background,
+            skills, or projects and it&apos;ll answer in real time.
+          </p>
+          <Chat />
         </Section>
 
         {/* Projects */}
