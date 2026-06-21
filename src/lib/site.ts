@@ -11,6 +11,23 @@ export const site = {
   // 🔧 Adjust to match the work you actually want.
   lookingFor:
     "Open to full-time roles and freelance projects — remote, or on-site around Calamba / Laguna.",
+  // 🔧 What you're actively building right now — shown in the "Current Mission" strip.
+  currentMission: {
+    title: "FMI Web Admin Console — CMMS v2",
+    detail:
+      "Building a desktop admin frontend on the live CMMS API so managers can run operations from the web.",
+    status: "In flight",
+  },
+  // 🔧 Attribute levels (out of 10) — these mirror the stat panel on the
+  // duplicant avatar, shown as resource meters in the Skills section.
+  attributes: [
+    { label: "Backend Engineering", level: 9, color: "teal" },
+    { label: "Frontend Engineering", level: 7, color: "amber" },
+    { label: "Database & Data Modeling", level: 8, color: "lime" },
+    { label: "Systems Architecture", level: 8, color: "teal" },
+    { label: "DevOps & Infrastructure", level: 6, color: "rust" },
+    { label: "AI / LLM Integration", level: 6, color: "amber" },
+  ],
   // 🔧 Drop your CV at public/Simoun-Ezequiel-Tusi-CV.pdf (or change this path).
   resumeUrl: "/Simoun-Ezequiel-Tusi-CV.pdf",
   email: "tusi.ekel@gmail.com",

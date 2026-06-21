@@ -1,121 +1,224 @@
+import Image from "next/image";
 import { Nav } from "@/components/Nav";
 import { Section } from "@/components/Section";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Chat } from "@/components/Chat";
 import { site } from "@/lib/site";
 
+// Accent color per skill category — cycles through the ONI resource palette.
+const SKILL_ACCENTS = ["bg-teal", "bg-amber", "bg-lime", "bg-rust"];
+
+// Resource-meter fill colors, keyed by the `color` on each attribute.
+const ATTR_BAR = {
+  teal: "bg-teal",
+  amber: "bg-amber",
+  lime: "bg-lime",
+  rust: "bg-rust",
+} as const;
+
 export default function Home() {
+  // ONI counts time in "cycles" (days). Colony founded when the career began.
+  const cycle = Math.floor(
+    (Date.now() - new Date("2024-06-01").getTime()) / 86_400_000,
+  );
+
   return (
     <>
       <Nav />
 
       <main id="top" className="flex-1">
-        {/* Hero */}
-        <section className="relative flex min-h-screen items-center overflow-hidden px-6">
-          <div className="pointer-events-none absolute inset-0 -z-10">
-            <div className="animate-float-slow absolute left-[10%] top-[15%] h-48 w-48 rounded-full bg-fuchsia-600/30 blur-3xl sm:h-72 sm:w-72" />
-            <div className="animate-float-slower absolute right-[8%] top-[30%] h-56 w-56 rounded-full bg-indigo-600/30 blur-3xl sm:h-80 sm:w-80" />
-            <div className="animate-float-slow absolute bottom-[8%] left-[35%] h-48 w-48 rounded-full bg-cyan-500/20 blur-3xl sm:h-72 sm:w-72" />
-          </div>
+        {/* ── Hero: Duplicant dossier ──────────────────────────────── */}
+        <section className="mx-auto w-full max-w-5xl px-4 pb-8 pt-28 sm:px-6 sm:pt-32">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+            {/* Intro */}
+            <div className="animate-fade-up">
+              <p className="mb-5 inline-flex items-center gap-2 rounded-md border border-line bg-surface px-3 py-1.5 font-mono text-xs text-foreground/70">
+                <span className="pip-pulse h-2 w-2 rounded-full bg-lime" />
+                DUPLICANT ONLINE · {site.location}
+              </p>
+              <h1 className="font-display text-4xl font-black leading-[1.05] tracking-tight text-foreground sm:text-6xl">
+                {site.name}
+              </h1>
+              <p className="mt-3 font-display text-lg font-bold text-teal sm:text-xl">
+                DESIGNATION: {site.role}
+              </p>
+              <p className="mt-5 max-w-xl leading-relaxed text-muted">
+                {site.tagline}
+              </p>
 
-          <div className="mx-auto w-full max-w-5xl">
-            <p className="animate-fade-up mb-5 inline-block rounded-full border border-foreground/10 bg-foreground/5 px-4 py-1.5 text-sm font-medium text-foreground/70">
-              👋 Hi, I&apos;m {site.name} — based in {site.location}
-            </p>
-            <h1 className="animate-fade-up text-4xl font-black leading-[1.1] tracking-tight sm:text-7xl sm:leading-[1.05]">
-              I&apos;m a{" "}
-              <span className="text-gradient break-words">{site.role}</span>
-              <br className="hidden sm:block" /> who ships production systems.
-            </h1>
-            <p className="animate-fade-up mt-6 max-w-xl text-lg text-foreground/60">
-              {site.tagline}
-            </p>
-            <p className="animate-fade-up mt-4 inline-flex items-center gap-2 text-sm font-medium text-foreground/50">
-              <span className="h-2 w-2 rounded-full bg-emerald-400" />
-              {site.lookingFor}
-            </p>
-            <div className="animate-fade-up mt-10 flex flex-wrap gap-3 sm:gap-4">
-              <a
-                href="#ask"
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-fuchsia-500 to-indigo-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-fuchsia-500/25 transition hover:opacity-90 sm:px-7 sm:py-3 sm:text-base"
-              >
-                <span aria-hidden>✨</span> Chat with my AI
-              </a>
-              <a
-                href="#projects"
-                className="rounded-full border border-foreground/15 px-6 py-2.5 text-sm font-semibold text-foreground transition hover:bg-foreground/5 sm:px-7 sm:py-3 sm:text-base"
-              >
-                See my work
-              </a>
-              <a
-                href={site.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-foreground/15 px-6 py-2.5 text-sm font-semibold text-foreground transition hover:bg-foreground/5 sm:px-7 sm:py-3 sm:text-base"
-              >
-                Download CV
-              </a>
-              <a
-                href="#contact"
-                className="rounded-full border border-foreground/15 px-6 py-2.5 text-sm font-semibold text-foreground transition hover:bg-foreground/5 sm:px-7 sm:py-3 sm:text-base"
-              >
-                Get in touch
-              </a>
+              {/* Vital readouts */}
+              <div className="mt-7 flex flex-wrap gap-3">
+                {[
+                  { v: `${site.projects.length}`, l: "systems shipped", c: "bg-teal" },
+                  { v: "Solo", l: "crew size", c: "bg-amber" },
+                  { v: "UPLB", l: "BS Comp Sci", c: "bg-lime" },
+                ].map((stat) => (
+                  <div
+                    key={stat.l}
+                    className="relative overflow-hidden rounded-lg border border-line bg-surface px-4 py-2"
+                  >
+                    <span className={`absolute inset-y-0 left-0 w-1 ${stat.c}`} />
+                    <span className="block font-display text-xl font-extrabold text-foreground">
+                      {stat.v}
+                    </span>
+                    <span className="font-mono text-[0.7rem] uppercase tracking-wider text-muted">
+                      {stat.l}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <p className="mt-6 inline-flex items-center gap-2 font-mono text-xs text-muted">
+                <span className="h-2 w-2 rounded-full bg-amber" />
+                {site.lookingFor}
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href="#ask"
+                  className="inline-flex items-center gap-2 rounded-lg border border-teal bg-teal/15 px-5 py-2.5 font-display font-bold text-teal transition hover:bg-teal/25"
+                >
+                  <span aria-hidden>✨</span> Chat with my AI
+                </a>
+                <a
+                  href="#projects"
+                  className="rounded-lg border border-line bg-surface px-5 py-2.5 font-display font-bold text-foreground transition hover:border-amber hover:text-amber"
+                >
+                  View blueprints
+                </a>
+                <a
+                  href={site.resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg border border-line bg-surface px-5 py-2.5 font-display font-bold text-foreground transition hover:border-amber hover:text-amber"
+                >
+                  Download dossier
+                </a>
+              </div>
+            </div>
+
+            {/* Duplicant dossier */}
+            <div className="animate-fade-up relative">
+              {/* Oxygen-generator glow */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -inset-6 -z-10 rounded-[2rem] bg-teal/15 blur-3xl"
+              />
+              <div className="panel rivets overflow-hidden">
+              <div className="flex items-center gap-2 border-b border-line bg-surface-2 px-4 py-2.5">
+                <span aria-hidden className="text-sm">⬡</span>
+                <span className="font-display text-xs font-bold uppercase tracking-[0.2em] text-amber">
+                  Duplicant Dossier
+                </span>
+                <span className="pip-pulse ml-auto inline-flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-wider text-teal">
+                  <span className="h-1.5 w-1.5 rounded-full bg-teal" /> printed
+                </span>
+              </div>
+              <Image
+                src="/final_oni_tusi.png"
+                alt={`${site.name} as an Oxygen Not Included duplicant, with a stat panel showing his developer skills`}
+                width={1254}
+                height={1254}
+                priority
+                className="h-auto w-full"
+              />
+              </div>
             </div>
           </div>
         </section>
 
-        {/* About */}
-        <Section id="about" eyebrow="About" title="A little about me">
-          <div className="grid gap-6 text-lg leading-relaxed text-foreground/70 md:grid-cols-2">
+        {/* ── Current Mission (rocket) ─────────────────────────────── */}
+        <section className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6">
+          <div className="panel overflow-hidden transition-colors duration-300 hover:border-teal/50">
+            {/* Mission-control header */}
+            <div className="flex items-center gap-2 border-b border-line bg-surface-2 px-4 py-2.5">
+              <span aria-hidden className="text-base">🚀</span>
+              <span className="font-display text-xs font-bold uppercase tracking-[0.22em] text-amber">
+                Current Mission
+              </span>
+              <span className="ml-auto inline-flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-wider text-lime">
+                <span className="pip-pulse h-1.5 w-1.5 rounded-full bg-lime" />
+                ▲ {site.currentMission.status}
+              </span>
+            </div>
+
+            {/* Mission body */}
+            <div className="flex flex-col gap-4 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+              <div>
+                <h3 className="font-display text-lg font-extrabold text-foreground">
+                  {site.currentMission.title}
+                </h3>
+                <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">
+                  {site.currentMission.detail}
+                </p>
+              </div>
+              <span className="inline-flex w-fit shrink-0 items-center gap-2 rounded-lg border border-teal/40 bg-teal/10 px-4 py-2 font-mono text-xs text-teal">
+                <span className="h-2 w-2 rounded-full bg-teal" />
+                Accepting new missions
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Bio ──────────────────────────────────────────────────── */}
+        <Section id="about" eyebrow="Bio" title="Duplicant background" icon="📋">
+          <div className="grid gap-6 leading-relaxed text-muted md:grid-cols-2">
             {site.about.map((para, i) => (
               <p key={i}>{para}</p>
             ))}
           </div>
         </Section>
 
-        {/* Experience */}
-        <Section id="experience" eyebrow="Experience" title="Where I've worked">
-          <div className="relative space-y-10 border-l border-foreground/10 pl-8">
-            {site.experience.map((job) => (
-              <div key={job.company} className="relative">
-                <span className="absolute -left-[37px] top-1.5 h-3.5 w-3.5 rounded-full bg-gradient-to-br from-fuchsia-500 to-indigo-500 ring-4 ring-background" />
-                <div className="flex flex-wrap items-baseline justify-between gap-x-4">
-                  <h3 className="text-xl font-bold">{job.company}</h3>
-                  <span className="text-sm font-medium text-foreground/40">
-                    {job.period}
-                  </span>
+        {/* ── Skills ───────────────────────────────────────────────── */}
+        <Section id="skills" eyebrow="Skills" title="Stored materials" icon="📦">
+          {/* Attribute meters — mirror the duplicant dossier stat panel */}
+          <div className="mb-8 rounded-xl border border-line bg-background/40 p-5">
+            <p className="mb-4 font-mono text-xs uppercase tracking-[0.18em] text-muted">
+              Attribute levels
+            </p>
+            <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+              {site.attributes.map((attr) => (
+                <div key={attr.label}>
+                  <div className="mb-1.5 flex items-baseline justify-between gap-3">
+                    <span className="text-sm text-foreground/85">{attr.label}</span>
+                    <span className="font-mono text-xs text-muted">
+                      {attr.level}/10
+                    </span>
+                  </div>
+                  <div className="meter">
+                    <span
+                      className={ATTR_BAR[attr.color as keyof typeof ATTR_BAR]}
+                      style={{ width: `${attr.level * 10}%` }}
+                    />
+                  </div>
                 </div>
-                <p className="mt-0.5 text-sm font-semibold text-fuchsia-400">
-                  {job.role}
-                </p>
-                <ul className="mt-4 space-y-2 text-foreground/65">
-                  {job.points.map((point, i) => (
-                    <li key={i} className="flex gap-3 leading-relaxed">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground/30" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </Section>
 
-        {/* Skills */}
-        <Section id="skills" eyebrow="Toolkit" title="Things I work with">
-          <div className="grid gap-8 sm:grid-cols-2">
-            {site.skillGroups.map((group) => (
-              <div key={group.category}>
-                <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.15em] text-fuchsia-400">
-                  {group.category}
-                </h3>
-                <ul className="flex flex-wrap gap-3">
+          <div className="grid gap-5 sm:grid-cols-2">
+            {site.skillGroups.map((group, gi) => (
+              <div
+                key={group.category}
+                className="rounded-xl border border-line bg-background/40 p-5"
+              >
+                <div className="mb-4 flex items-center gap-2">
+                  <span
+                    className={`h-3 w-3 rounded-sm ${SKILL_ACCENTS[gi % SKILL_ACCENTS.length]}`}
+                  />
+                  <h3 className="font-display text-sm font-bold uppercase tracking-[0.15em] text-foreground">
+                    {group.category}
+                  </h3>
+                </div>
+                <ul className="flex flex-wrap gap-2">
                   {group.items.map((skill) => (
                     <li
                       key={skill}
-                      className="rounded-xl border border-foreground/10 bg-foreground/[0.03] px-4 py-2.5 text-sm font-medium text-foreground/80 transition hover:border-fuchsia-400/40 hover:text-foreground"
+                      className="inline-flex items-center gap-2 rounded-md border border-line bg-surface px-3 py-1.5 text-sm text-foreground/85"
                     >
+                      <span
+                        className={`h-1.5 w-1.5 rounded-full ${SKILL_ACCENTS[gi % SKILL_ACCENTS.length]}`}
+                      />
                       {skill}
                     </li>
                   ))}
@@ -125,22 +228,49 @@ export default function Home() {
           </div>
         </Section>
 
-        {/* Ask AI */}
-        <Section
-          id="ask"
-          eyebrow="Ask AI"
-          title="Chat with my AI assistant"
-        >
-          <p className="mb-8 max-w-xl text-lg text-foreground/60">
-            Powered by Azure AI Foundry — ask anything about my background,
-            skills, or projects and it&apos;ll answer in real time.
+        {/* ── Research log (experience) ────────────────────────────── */}
+        <Section id="experience" eyebrow="Service Record" title="Postings & deployments" icon="📜">
+          <div className="relative space-y-8 border-l-2 border-line pl-7">
+            {site.experience.map((job) => (
+              <div key={job.company} className="relative">
+                <span className="absolute -left-[35px] top-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-teal bg-background text-[0.6rem] text-teal">
+                  ✓
+                </span>
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4">
+                  <h3 className="font-display text-lg font-bold text-foreground">
+                    {job.company}
+                  </h3>
+                  <span className="font-mono text-xs text-muted">{job.period}</span>
+                </div>
+                <p className="mt-0.5 font-display text-sm font-bold text-amber">
+                  {job.role}
+                </p>
+                <ul className="mt-4 space-y-2 text-muted">
+                  {job.points.map((point, i) => (
+                    <li key={i} className="flex gap-3 leading-relaxed">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal/60" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* ── Comms (Ask AI) ───────────────────────────────────────── */}
+        <Section id="ask" eyebrow="AI" title="Hail the colony AI" icon="📡">
+          <p className="mb-7 max-w-xl leading-relaxed text-muted">
+            A live AI assistant trained on this colony&apos;s records. Ask it
+            anything about my background, skills, or builds — it answers in real
+            time (English or Taglish). Powered by Azure AI Foundry.
           </p>
           <Chat />
         </Section>
 
-        {/* Projects */}
-        <Section id="projects" eyebrow="Work" title={<>Selected projects</>}>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* ── Builds (projects) ────────────────────────────────────── */}
+        <Section id="projects" eyebrow="Builds" title="Constructed systems" icon="🏗">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {[...site.projects]
               .sort(
                 (a, b) =>
@@ -153,77 +283,71 @@ export default function Home() {
           </div>
         </Section>
 
-        {/* Contact */}
-        <Section id="contact" eyebrow="Contact" title="Let's build something">
-          <div className="rounded-3xl border border-foreground/10 bg-gradient-to-br from-fuchsia-500/10 via-purple-500/5 to-indigo-500/10 p-10 sm:p-14">
-            <p className="max-w-lg text-lg text-foreground/70">
-              Have a project in mind, a question, or just want to say hi? My
-              inbox is always open.
+        {/* ── Recreation (off the clock) ───────────────────────────── */}
+        <Section id="recreation" eyebrow="Recreation" title="Off-shift activity" icon="🎮">
+          <div className="sm:flex sm:items-start sm:justify-between sm:gap-8">
+            <p className="max-w-md leading-relaxed text-muted">
+              {site.offTheClock.note}
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a
-                href={`mailto:${site.email}`}
-                className="inline-block rounded-full bg-foreground px-8 py-3.5 font-semibold text-background transition hover:bg-foreground/90"
-              >
-                {site.email}
-              </a>
-              <a
-                href={`tel:${site.phone.replace(/\s/g, "")}`}
-                className="inline-block rounded-full border border-foreground/15 px-8 py-3.5 font-semibold text-foreground transition hover:bg-foreground/5"
-              >
-                {site.phone}
-              </a>
-            </div>
-            <div className="mt-10 flex flex-wrap gap-6 text-sm font-medium text-foreground/60">
-              {site.socials.map((s) => (
-                <a
-                  key={s.href}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition hover:text-foreground"
-                >
-                  {s.label} ↗
-                </a>
-              ))}
-            </div>
-          </div>
-        </Section>
-
-        {/* Off the clock */}
-        <section className="mx-auto w-full max-w-5xl px-6 pb-24">
-          <div className="rounded-2xl border border-foreground/10 bg-foreground/[0.03] p-6 sm:flex sm:items-center sm:justify-between sm:gap-8">
-            <div className="max-w-md">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-fuchsia-400">
-                {site.offTheClock.eyebrow}
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-foreground/60">
-                {site.offTheClock.note}
-              </p>
-            </div>
-            <ul className="mt-5 flex flex-wrap gap-3 sm:mt-0 sm:shrink-0">
+            <ul className="mt-5 grid grid-cols-2 gap-3 sm:mt-0 sm:shrink-0">
               {site.offTheClock.ranks.map((r) => (
                 <li
                   key={r.game}
-                  className="rounded-xl border border-foreground/10 bg-foreground/[0.03] px-4 py-2.5"
+                  className="rounded-lg border border-line bg-surface px-4 py-2.5"
                 >
-                  <span className="block text-sm font-bold">{r.rank}</span>
-                  <span className="block text-xs text-foreground/50">
-                    {r.game}
+                  <span className="flex items-center gap-2 font-display text-sm font-bold text-amber">
+                    🏆 {r.rank}
                   </span>
+                  <span className="font-mono text-xs text-muted">{r.game}</span>
                 </li>
               ))}
             </ul>
           </div>
-        </section>
+        </Section>
+
+        {/* ── Dispatch (contact) ───────────────────────────────────── */}
+        <Section id="contact" eyebrow="Dispatch" title="Open a supply line" icon="✉">
+          <p className="max-w-lg leading-relaxed text-muted">
+            Have a system to build, a question, or just want to say hi? My inbox
+            is always open.
+          </p>
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <a
+              href={`mailto:${site.email}`}
+              className="rounded-lg border border-teal bg-teal/15 px-6 py-3 font-display font-bold text-teal transition hover:bg-teal/25"
+            >
+              {site.email}
+            </a>
+            <a
+              href={`tel:${site.phone.replace(/\s/g, "")}`}
+              className="rounded-lg border border-line bg-surface px-6 py-3 font-display font-bold text-foreground transition hover:border-amber hover:text-amber"
+            >
+              {site.phone}
+            </a>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-5 font-mono text-sm text-muted">
+            {site.socials.map((s) => (
+              <a
+                key={s.href}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition hover:text-teal"
+              >
+                {s.label} ↗
+              </a>
+            ))}
+          </div>
+        </Section>
       </main>
 
-      <footer className="border-t border-foreground/10 px-6 py-8">
-        <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 text-sm text-foreground/40 sm:flex-row">
+      <footer className="mx-auto w-full max-w-5xl px-6 py-10">
+        <div className="flex flex-col items-center justify-between gap-2 border-t border-line pt-6 font-mono text-xs text-muted sm:flex-row">
           <p>
-            © {new Date().getFullYear()} {site.name}. All rights reserved.
+            © {new Date().getFullYear()} {site.name} · Cycle {cycle} · colony
+            stable
           </p>
-          <p>Built with Next.js & Tailwind CSS.</p>
+          <p>Built with Next.js · Tailwind · powered by oxygen 🌿</p>
         </div>
       </footer>
     </>

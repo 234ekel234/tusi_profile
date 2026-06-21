@@ -6,12 +6,12 @@ import { site } from "@/lib/site";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const links = [
-  { label: "About", href: "/#about" },
-  { label: "Experience", href: "/#experience" },
+  { label: "Bio", href: "/#about" },
+  { label: "Service Record", href: "/#experience" },
   { label: "Skills", href: "/#skills" },
-  { label: "Ask AI", href: "/#ask" },
-  { label: "Projects", href: "/#projects" },
-  { label: "Contact", href: "/#contact" },
+  { label: "AI", href: "/#ask" },
+  { label: "Builds", href: "/#projects" },
+  { label: "Dispatch", href: "/#contact" },
 ];
 
 export function Nav() {
@@ -25,7 +25,6 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll while the mobile menu is open.
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
@@ -37,27 +36,31 @@ export function Nav() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled || menuOpen
-          ? "border-b border-foreground/10 bg-background/70 backdrop-blur-xl"
+          ? "border-b border-line bg-background/85 backdrop-blur-xl"
           : "border-b border-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+      <nav className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
+        {/* Colony tag */}
         <Link
           href="/#top"
-          className="text-lg font-bold tracking-tight"
           onClick={() => setMenuOpen(false)}
+          className="flex items-center gap-2 font-display text-base font-extrabold tracking-tight"
         >
+          <span className="flex h-7 w-7 items-center justify-center rounded-md border border-line bg-surface-2 text-sm text-teal">
+            ◎
+          </span>
           {site.name.split(" ")[0]}
-          <span className="text-gradient">.</span>
+          <span className="text-teal">.colony</span>
         </Link>
 
-        {/* Desktop links */}
-        <ul className="hidden gap-8 text-sm font-medium text-foreground/70 sm:flex">
+        {/* Desktop tabs */}
+        <ul className="hidden items-center gap-1 lg:flex">
           {links.map((l) => (
             <li key={l.href}>
               <Link
                 href={l.href}
-                className="transition-colors hover:text-foreground"
+                className="rounded-md px-3 py-1.5 font-display text-sm font-semibold text-muted transition-colors hover:bg-surface-2 hover:text-foreground"
               >
                 {l.label}
               </Link>
@@ -65,22 +68,22 @@ export function Nav() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <ThemeToggle />
           <Link
             href="/#contact"
-            className="hidden rounded-full bg-foreground/10 px-4 py-2 text-sm font-semibold ring-1 ring-foreground/15 transition hover:bg-foreground/20 sm:inline-block"
+            className="hidden rounded-lg border border-line bg-surface-2 px-3.5 py-2 font-display text-sm font-bold text-foreground transition hover:border-teal hover:text-teal sm:inline-block"
           >
-            Let&apos;s talk
+            Recruit me
           </Link>
 
-          {/* Mobile hamburger / close toggle */}
+          {/* Mobile toggle */}
           <button
             type="button"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((o) => !o)}
-            className="flex h-10 w-10 items-center justify-center rounded-full ring-1 ring-foreground/15 transition hover:bg-foreground/10 sm:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-line bg-surface-2 transition hover:border-teal lg:hidden"
           >
             <span className="relative block h-4 w-5">
               <span
@@ -103,19 +106,19 @@ export function Nav() {
         </div>
       </nav>
 
-      {/* Mobile dropdown menu */}
+      {/* Mobile dropdown */}
       <div
-        className={`overflow-hidden border-t border-foreground/10 bg-background/95 backdrop-blur-xl transition-[max-height] duration-300 sm:hidden ${
+        className={`overflow-hidden border-t border-line bg-background/97 backdrop-blur-xl transition-[max-height] duration-300 lg:hidden ${
           menuOpen ? "max-h-96" : "max-h-0 border-t-0"
         }`}
       >
-        <ul className="flex flex-col gap-1 px-6 py-4">
+        <ul className="flex flex-col gap-1 px-4 py-4 sm:px-6">
           {links.map((l) => (
             <li key={l.href}>
               <Link
                 href={l.href}
                 onClick={() => setMenuOpen(false)}
-                className="block rounded-lg px-3 py-3 text-base font-medium text-foreground/80 transition hover:bg-foreground/5 hover:text-foreground"
+                className="block rounded-lg px-3 py-3 font-display text-base font-semibold text-foreground/80 transition hover:bg-surface-2 hover:text-teal"
               >
                 {l.label}
               </Link>
@@ -125,9 +128,9 @@ export function Nav() {
             <Link
               href="/#contact"
               onClick={() => setMenuOpen(false)}
-              className="block rounded-full bg-gradient-to-r from-fuchsia-500 to-indigo-500 px-5 py-3 text-center font-semibold text-white"
+              className="block rounded-lg border border-teal bg-teal/10 px-5 py-3 text-center font-display font-bold text-teal"
             >
-              Let&apos;s talk
+              Recruit me
             </Link>
           </li>
         </ul>

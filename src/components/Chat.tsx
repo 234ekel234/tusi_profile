@@ -75,53 +75,77 @@ export function Chat() {
   }
 
   return (
-    <div className="rounded-3xl border border-foreground/10 bg-foreground/[0.03] p-6 sm:p-8">
-      {/* Suggestion chips */}
-      <div className="mb-5 flex flex-wrap gap-3">
-        {SUGGESTIONS.map((s) => (
-          <button
-            key={s}
-            onClick={() => {
-              setInput(s);
-              send(s);
-            }}
-            disabled={loading}
-            className="rounded-full border border-foreground/10 bg-foreground/[0.03] px-4 py-2 text-sm font-medium text-foreground/70 transition hover:border-fuchsia-400/40 hover:text-foreground disabled:opacity-50"
-          >
-            {s}
-          </button>
-        ))}
+    <div className="panel rivets overflow-hidden">
+      {/* Console title bar */}
+      <div className="flex items-center gap-2 border-b border-line bg-surface-2 px-4 py-2.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-rust" />
+        <span className="h-2.5 w-2.5 rounded-full bg-amber" />
+        <span className="h-2.5 w-2.5 rounded-full bg-lime" />
+        <span className="ml-2 font-mono text-xs text-muted">
+          comms-console · printing-pod.exe
+        </span>
+        <span className="pip-pulse ml-auto font-mono text-[0.65rem] uppercase tracking-wider text-teal">
+          ● online
+        </span>
       </div>
 
-      {/* Input row */}
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") send(input);
-          }}
-          placeholder="Ask me anything about my work…"
-          className="flex-1 rounded-full border border-foreground/15 bg-background px-5 py-3 text-foreground outline-none transition focus:border-fuchsia-400/50"
-        />
-        <button
-          onClick={() => send(input)}
-          disabled={loading}
-          className="rounded-full bg-gradient-to-r from-fuchsia-500 to-indigo-500 px-7 py-3 font-semibold text-white shadow-lg shadow-fuchsia-500/25 transition hover:opacity-90 disabled:opacity-50"
-        >
-          {loading ? "Thinking…" : "Ask"}
-        </button>
-      </div>
-
-      {/* Answer */}
-      {asked && (
-        <div
-          ref={outputRef}
-          className="mt-6 max-h-72 overflow-y-auto whitespace-pre-wrap rounded-2xl border border-foreground/10 bg-background/50 p-5 leading-relaxed text-foreground/80"
-        >
-          {answer || (loading ? "…" : "")}
+      <div className="p-5 sm:p-6">
+        {/* Suggestion pings */}
+        <div className="mb-4 flex flex-wrap gap-2">
+          {SUGGESTIONS.map((s) => (
+            <button
+              key={s}
+              onClick={() => {
+                setInput(s);
+                send(s);
+              }}
+              disabled={loading}
+              className="rounded-md border border-line bg-surface-2 px-3 py-1.5 font-mono text-xs text-foreground/75 transition hover:border-teal hover:text-teal disabled:opacity-50"
+            >
+              {s}
+            </button>
+          ))}
         </div>
-      )}
+
+        {/* Input row */}
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="flex flex-1 items-center gap-2 rounded-lg border border-line bg-background px-4 focus-within:border-teal">
+            <span className="font-mono text-teal">&gt;</span>
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") send(input);
+              }}
+              placeholder="query the colony archive…"
+              className="flex-1 bg-transparent py-3 font-mono text-sm text-foreground outline-none placeholder:text-muted"
+            />
+          </div>
+          <button
+            onClick={() => send(input)}
+            disabled={loading}
+            className="rounded-lg border border-teal bg-teal/15 px-6 py-3 font-display font-bold text-teal transition hover:bg-teal/25 disabled:opacity-50"
+          >
+            {loading ? "Transmitting…" : "Send ▸"}
+          </button>
+        </div>
+
+        {/* Answer readout */}
+        {asked && (
+          <div
+            ref={outputRef}
+            className="mt-5 max-h-72 overflow-y-auto whitespace-pre-wrap rounded-lg border border-line bg-background p-5 font-mono text-sm leading-relaxed text-foreground/85"
+          >
+            {answer ? (
+              answer
+            ) : loading ? (
+              <span className="blink">▮</span>
+            ) : (
+              ""
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

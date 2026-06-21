@@ -38,7 +38,7 @@ export function ThemeToggle() {
         mounted ? `Switch to ${targetLabel.toLowerCase()} mode` : "Toggle color theme"
       }
       title={mounted ? `Switch to ${targetLabel.toLowerCase()} mode` : undefined}
-      className="inline-flex items-center gap-2 rounded-full border border-foreground/15 bg-foreground/5 px-3.5 py-2 text-sm font-semibold text-foreground/80 shadow-sm transition hover:border-foreground/30 hover:bg-foreground/10 hover:text-foreground"
+      className="inline-flex items-center gap-2 rounded-lg border border-line bg-surface-2 px-3 py-2 font-display text-sm font-bold text-foreground/80 transition hover:border-teal hover:text-teal"
     >
       {/* Render contents only after mount to avoid a hydration mismatch;
           keep a width placeholder so the nav layout doesn't shift. */}

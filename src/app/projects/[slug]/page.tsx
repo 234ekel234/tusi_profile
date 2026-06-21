@@ -60,9 +60,7 @@ export default async function ProjectPage({
         {/* Header */}
         <section className="relative overflow-hidden px-6 pt-32 pb-16">
           <div className="pointer-events-none absolute inset-0 -z-10">
-            <div
-              className={`absolute left-1/2 top-0 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-gradient-to-r ${project.gradient} opacity-20 blur-3xl`}
-            />
+            <div className="absolute left-1/2 top-10 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-teal/10 blur-3xl" />
           </div>
 
           <div className="mx-auto w-full max-w-4xl">
@@ -79,7 +77,7 @@ export default async function ProjectPage({
             {status ? (
               <div className="mt-8">
                 <span className="inline-flex items-center gap-2 rounded-full bg-foreground/[0.06] px-3 py-1 text-xs font-semibold text-foreground/70 ring-1 ring-foreground/15">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-400" />
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber" />
                   {status}
                 </span>
               </div>
@@ -118,7 +116,7 @@ export default async function ProjectPage({
                 href={liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-fuchsia-500 to-indigo-500 px-7 py-3 font-semibold text-white shadow-lg shadow-fuchsia-500/25 transition hover:opacity-90"
+                className="mt-8 inline-flex items-center gap-2 rounded-lg border border-teal bg-teal/15 px-7 py-3 font-display font-bold text-teal transition hover:bg-teal/25"
               >
                 Visit live site
                 <span aria-hidden>↗</span>
@@ -126,8 +124,8 @@ export default async function ProjectPage({
             ) : null}
 
             {demo ? (
-              <div className="mt-5 inline-block rounded-2xl border border-foreground/10 bg-foreground/[0.03] p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-fuchsia-400">
+              <div className="mt-5 inline-block rounded-2xl border border-line bg-surface p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-amber">
                   Demo access
                 </p>
                 <div className="mt-2 flex flex-wrap gap-x-6 gap-y-1 text-sm">
@@ -155,7 +153,7 @@ export default async function ProjectPage({
                 {metrics.map((m) => (
                   <div
                     key={m.label}
-                    className="min-w-[8rem] flex-1 rounded-2xl border border-foreground/10 bg-foreground/[0.03] p-5"
+                    className="min-w-[8rem] flex-1 rounded-2xl border border-line bg-surface p-5"
                   >
                     <dt className="text-xl font-black tracking-tight sm:text-2xl">
                       {m.value}
@@ -175,12 +173,12 @@ export default async function ProjectPage({
         <div className="mx-auto w-full max-w-4xl space-y-16 px-6 pb-24">
           {/* Gallery */}
           <section>
-            <h2 className="mb-6 text-sm font-semibold uppercase tracking-[0.2em] text-fuchsia-400">
+            <h2 className="mb-6 text-sm font-semibold uppercase tracking-[0.2em] text-amber">
               {poster ? "Poster" : "Screenshots"}
             </h2>
             {poster ? (
               <div className="space-y-6">
-                <div className="mx-auto max-w-md overflow-hidden rounded-2xl border border-foreground/10 bg-foreground/[0.03] p-2">
+                <div className="mx-auto max-w-md overflow-hidden rounded-2xl border border-line bg-surface p-2">
                   <Image
                     src={poster.src}
                     alt={poster.alt}
@@ -212,7 +210,7 @@ export default async function ProjectPage({
                 {images.map((img) => (
                   <figure
                     key={img.src}
-                    className="overflow-hidden rounded-2xl border border-foreground/10 bg-foreground/[0.03]"
+                    className="overflow-hidden rounded-2xl border border-line bg-surface"
                   >
                     <div className="relative aspect-video">
                       <Image
@@ -239,7 +237,7 @@ export default async function ProjectPage({
                 className="group flex flex-col items-center justify-center rounded-2xl border border-dashed border-foreground/15 bg-foreground/[0.02] px-6 py-16 text-center transition hover:border-foreground/30 hover:bg-foreground/[0.04]"
               >
                 <div
-                  className={`mb-4 h-12 w-12 rounded-xl bg-gradient-to-br ${project.gradient} opacity-80`}
+                  className={`mb-4 h-12 w-12 rounded-xl bg-teal opacity-80`}
                 />
                 <p className="text-sm text-foreground/60">
                   This project is live — explore the real thing.
@@ -252,7 +250,7 @@ export default async function ProjectPage({
             ) : (
               <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-foreground/15 bg-foreground/[0.02] px-6 py-16 text-center">
                 <div
-                  className={`mb-4 h-12 w-12 rounded-xl bg-gradient-to-br ${project.gradient} opacity-80`}
+                  className={`mb-4 h-12 w-12 rounded-xl bg-teal opacity-80`}
                 />
                 <p className="text-sm text-foreground/50">
                   This is a private client system — screenshots available on
@@ -264,7 +262,7 @@ export default async function ProjectPage({
 
           {/* The challenge */}
           <section>
-            <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-fuchsia-400">
+            <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-amber">
               The challenge
             </h2>
             <p className="text-lg leading-relaxed text-foreground/70">
@@ -274,14 +272,14 @@ export default async function ProjectPage({
 
           {/* What I built */}
           <section>
-            <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-fuchsia-400">
+            <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-amber">
               What I built
             </h2>
             <ul className="space-y-3">
               {project.highlights.map((point, i) => (
                 <li key={i} className="flex gap-3 text-foreground/70">
                   <span
-                    className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br ${project.gradient}`}
+                    className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal`}
                   />
                   <span className="leading-relaxed">{point}</span>
                 </li>
@@ -292,7 +290,7 @@ export default async function ProjectPage({
           {/* Architecture */}
           {architecture ? (
             <section>
-              <h2 className="mb-6 text-sm font-semibold uppercase tracking-[0.2em] text-fuchsia-400">
+              <h2 className="mb-6 text-sm font-semibold uppercase tracking-[0.2em] text-amber">
                 Architecture
               </h2>
               <ArchDiagram
@@ -305,13 +303,13 @@ export default async function ProjectPage({
 
           {/* Outcome */}
           <section>
-            <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-fuchsia-400">
+            <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-amber">
               Outcome
             </h2>
             <ul className="space-y-3">
               {project.outcome.map((point, i) => (
                 <li key={i} className="flex gap-3 text-foreground/70">
-                  <span className="mt-1.5 shrink-0 text-fuchsia-400">✓</span>
+                  <span className="mt-1.5 shrink-0 text-amber">✓</span>
                   <span className="leading-relaxed">{point}</span>
                 </li>
               ))}
@@ -319,20 +317,20 @@ export default async function ProjectPage({
           </section>
 
           {/* CTA */}
-          <section className="rounded-3xl border border-foreground/10 bg-gradient-to-br from-fuchsia-500/10 via-purple-500/5 to-indigo-500/10 p-8 sm:p-10">
-            <p className="text-lg text-foreground/70">
+          <section className="panel rivets p-8 sm:p-10">
+            <p className="text-lg text-muted">
               Want to talk through how this was built, or see a walkthrough?
             </p>
-            <div className="mt-6 flex flex-wrap gap-4">
+            <div className="mt-6 flex flex-wrap gap-3">
               <a
                 href={`mailto:${site.email}`}
-                className="inline-block rounded-full bg-foreground px-7 py-3 font-semibold text-background transition hover:bg-foreground/90"
+                className="rounded-lg border border-teal bg-teal/15 px-7 py-3 font-display font-bold text-teal transition hover:bg-teal/25"
               >
                 Get in touch
               </a>
               <Link
                 href="/#projects"
-                className="inline-block rounded-full border border-foreground/15 px-7 py-3 font-semibold text-foreground transition hover:bg-foreground/5"
+                className="rounded-lg border border-line bg-surface px-7 py-3 font-display font-bold text-foreground transition hover:border-amber hover:text-amber"
               >
                 See other projects
               </Link>

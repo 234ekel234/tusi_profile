@@ -1,88 +1,134 @@
 @import "tailwindcss";
 
-/* Dark is the default theme. The `.light` class on <html> flips the tokens. */
+/* ───────────────────────────────────────────────────────────────
+   Oxygen Not Included–inspired theme.
+   Warm industrial palette, riveted panels, resource-meter UI.
+   Dark ("night cycle") is default; .light is a warm "daylight" variant.
+   ─────────────────────────────────────────────────────────────── */
 :root {
-  --background: #0a0613;
-  --foreground: #f5f3ff;
-  --accent: #f0abfc;
+  --background: #17120e;   /* espresso base */
+  --surface: #221b14;      /* panel */
+  --surface-2: #2c2318;    /* raised / header strip */
+  --foreground: #f2e7cf;   /* warm parchment ink */
+  --muted: #a99a7c;        /* dim ink */
+  --line: #4d3f2c;         /* warm rivet/border */
+  --grid: rgba(120, 95, 60, 0.07); /* blueprint grid */
+  --teal: #4ec8b0;         /* coolant / primary */
+  --amber: #eaa53b;        /* power / energy */
+  --lime: #a7c74f;         /* oxygen */
+  --rust: #de6a45;         /* alert / heat */
   color-scheme: dark;
 }
 
 :root.light {
-  --background: #f7f6fb;
-  --foreground: #181225;
-  --accent: #c026d3;
+  --background: #ece0c8;   /* warm daylight parchment */
+  --surface: #f5ecd8;
+  --surface-2: #e7d8ba;
+  --foreground: #2b2113;
+  --muted: #6e5f44;
+  --line: #c5ad81;
+  --grid: rgba(120, 95, 60, 0.10);
+  --teal: #1d9a83;
+  --amber: #b9781a;
+  --lime: #6e8f23;
+  --rust: #b8462a;
   color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
   --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@keyframes float-slow {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(40px, -30px) scale(1.1); }
-}
-
-@keyframes float-slower {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-30px, 40px) scale(1.15); }
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-teal: var(--teal);
+  --color-amber: var(--amber);
+  --color-lime: var(--lime);
+  --color-rust: var(--rust);
+  --font-display: var(--font-display), system-ui, sans-serif;
+  --font-sans: var(--font-body), system-ui, sans-serif;
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-.animate-float-slow { animation: float-slow 14s ease-in-out infinite; }
-.animate-float-slower { animation: float-slower 18s ease-in-out infinite; }
-.animate-fade-up { animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
-
-html {
-  scroll-behavior: smooth;
+@keyframes meter-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@keyframes pip-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.animate-fade-up { animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  /* Safety net: never allow horizontal scrolling on any screen size. */
   overflow-x: hidden;
-}
-
-a {
-  text-underline-offset: 0.2em;
+  /* Blueprint grid over the espresso base */
+  background-color: var(--background);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 38px 38px;
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
 }
 
-.text-gradient {
-  background: linear-gradient(90deg, #f0abfc, #c084fc, #818cf8, #38bdf8);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+/* ── ONI panel: rounded riveted module ─────────────────────────── */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 10px 30px -12px rgba(0, 0, 0, 0.55);
 }
 
-/* Deeper gradient stops keep the text readable on a light background. */
-:root.light .text-gradient {
-  background: linear-gradient(90deg, #c026d3, #9333ea, #4f46e5, #0284c7);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+/* Corner rivets — four bolts in the panel corners */
+.rivets {
+  background-image:
+    radial-gradient(circle at 11px 11px, var(--line) 1.6px, transparent 2.4px),
+    radial-gradient(circle at calc(100% - 11px) 11px, var(--line) 1.6px, transparent 2.4px),
+    radial-gradient(circle at 11px calc(100% - 11px), var(--line) 1.6px, transparent 2.4px),
+    radial-gradient(circle at calc(100% - 11px) calc(100% - 11px), var(--line) 1.6px, transparent 2.4px);
+  background-repeat: no-repeat;
 }
+
+/* Resource meter (skill bars / readouts) */
+.meter {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 55%, transparent);
+  overflow: hidden;
+}
+.meter > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  transform-origin: left;
+  animation: meter-fill 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.blink { animation: blink 1.1s step-end infinite; }
+.pip-pulse { animation: pip-pulse 1.6s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;

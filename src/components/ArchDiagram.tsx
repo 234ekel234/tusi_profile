@@ -10,28 +10,27 @@ export type ArchStep = {
 export function ArchDiagram({
   steps,
   caption,
-  gradient,
 }: {
   steps: readonly ArchStep[];
   caption?: string;
-  gradient: string;
+  gradient?: string; // accepted for compatibility; styling now uses ONI tokens
 }) {
   return (
     <figure className="m-0">
       <div className="flex flex-col items-stretch gap-2 md:flex-row">
         {steps.map((step, i) => (
           <Fragment key={step.title}>
-            <div className="flex-1 rounded-2xl border border-foreground/10 bg-foreground/[0.03] p-4">
-              <div
-                className={`mb-2.5 h-1 w-8 rounded-full bg-gradient-to-r ${gradient}`}
-              />
-              <h4 className="text-sm font-bold leading-tight">{step.title}</h4>
+            <div className="flex-1 rounded-xl border border-line bg-surface p-4">
+              <div className="mb-2.5 h-1 w-8 rounded-full bg-teal" />
+              <h4 className="font-display text-sm font-bold leading-tight text-foreground">
+                {step.title}
+              </h4>
               {step.items && step.items.length > 0 ? (
                 <ul className="mt-2 space-y-1">
                   {step.items.map((item) => (
                     <li
                       key={item}
-                      className="text-xs leading-snug text-foreground/55"
+                      className="font-mono text-xs leading-snug text-muted"
                     >
                       {item}
                     </li>
@@ -42,7 +41,7 @@ export function ArchDiagram({
             {i < steps.length - 1 ? (
               <div
                 aria-hidden
-                className="flex shrink-0 items-center justify-center text-foreground/30"
+                className="flex shrink-0 items-center justify-center text-teal/50"
               >
                 <span className="md:hidden">↓</span>
                 <span className="hidden md:inline">→</span>
